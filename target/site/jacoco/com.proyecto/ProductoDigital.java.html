@@ -2,45 +2,55 @@
 
 public class ProductoDigital extends Producto {
 
+    private static final double DESCUENTO_DIGITAL = 0.10;
+    private static final double IVA_GENERAL       = 0.21;
+    private static final double IVA_REDUCIDO      = 0.10;
+    private static final double IVA_SUPER         = 0.04;
+
     private String licencia;
 
     public ProductoDigital(String nombre, double precio, String licencia) {
-<span class="fc" id="L8">        super(nombre, precio);</span>
-<span class="fc" id="L9">        this.licencia = licencia;</span>
-<span class="fc" id="L10">    }</span>
+<span class="fc" id="L13">        super(nombre, precio);</span>
+<span class="fc" id="L14">        this.licencia = licencia;</span>
+<span class="fc" id="L15">    }</span>
 
-    // Getter
     public String getLicencia() {
-<span class="fc" id="L14">        return licencia;</span>
+<span class="fc" id="L18">        return licencia;</span>
     }
 
-    // Precio final: precio base con 10% de descuento
     @Override
     public double calcularPrecioFinal() {
-<span class="fc" id="L20">        return precio * 0.90;</span>
+<span class="fc" id="L23">        return precio * (1 - DESCUENTO_DIGITAL);</span>
     }
 
+    /**
+     * Devuelve el precio del producto con el tipo de IVA indicado aplicado.
+     *
+     * @param tipoIva tipo de IVA: &quot;GENERAL&quot; (21%), &quot;REDUCIDO&quot; (10%) o &quot;SUPER&quot; (4%)
+     * @return precio base más el IVA correspondiente
+     * @throws IllegalArgumentException si el tipo de IVA no es reconocido
+     */
     public double aplicarIVA(String tipoIva) {
         double porcentaje;
-<span class="nc bnc" id="L25" title="All 4 branches missed.">        switch (tipoIva) {</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">        switch (tipoIva) {</span>
             case &quot;GENERAL&quot;:
-<span class="nc" id="L27">                porcentaje = 0.21;</span>
-<span class="nc" id="L28">                break;</span>
+<span class="nc" id="L37">                porcentaje = IVA_GENERAL;</span>
+<span class="nc" id="L38">                break;</span>
             case &quot;REDUCIDO&quot;:
-<span class="nc" id="L30">                porcentaje = 0.10;</span>
-<span class="nc" id="L31">                break;</span>
+<span class="nc" id="L40">                porcentaje = IVA_REDUCIDO;</span>
+<span class="nc" id="L41">                break;</span>
             case &quot;SUPER&quot;:
-<span class="nc" id="L33">                porcentaje = 0.04;</span>
-<span class="nc" id="L34">                break;</span>
+<span class="nc" id="L43">                porcentaje = IVA_SUPER;</span>
+<span class="nc" id="L44">                break;</span>
             default:
-<span class="nc" id="L36">                throw new IllegalArgumentException(&quot;Tipo de IVA no reconocido: &quot; + tipoIva);</span>
+<span class="nc" id="L46">                throw new IllegalArgumentException(&quot;Tipo de IVA no reconocido: &quot; + tipoIva);</span>
         }
-<span class="nc" id="L38">        return precio * (1 + porcentaje);</span>
+<span class="nc" id="L48">        return precio * (1 + porcentaje);</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L43">        return nombre + &quot; (digital) - &quot; + precio + &quot;€ (10% descuento) | Licencia: &quot; + licencia;</span>
+<span class="fc" id="L53">        return nombre + &quot; (digital) - &quot; + precio + &quot;€ (10% descuento) | Licencia: &quot; + licencia;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

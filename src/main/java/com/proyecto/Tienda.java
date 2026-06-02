@@ -1,38 +1,54 @@
 package com.proyecto;
 
+
 public class Tienda {
 
-    public Factura realizarVenta(Cliente c, Pedido p) {
+    private static final double DESCUENTO_VIP          = 0.15;
+    private static final double DESCUENTO_ANTIGUEDAD   = 0.10;
+    private static final int    ANIOS_MINIMOS_DESCUENTO = 3;
 
-        if (c == null) {
+    /**
+     * Procesa un pedido para un cliente y genera la factura correspondiente.
+     * Aplica un descuento si el cliente es VIP, o si tiene
+     * más de 3 años de antigüedad.
+     *
+     * @param cliente 
+     * @param pedido  
+     * @return la {@link Factura} 
+     * @throws NullPointerException  
+     * @throws IllegalStateException 
+     */
+    public Factura realizarVenta(Cliente cliente, Pedido pedido) {
+
+        if (cliente == null) {
             throw new NullPointerException("El cliente no puede ser null");
         }
-        if (p == null) {
+        if (pedido == null) {
             throw new NullPointerException("El pedido no puede ser null");
         }
-        if (p.getProductos().isEmpty()) {
+        if (pedido.getProductos().isEmpty()) {
             throw new IllegalStateException("No se puede facturar un pedido sin productos");
         }
 
-        double totalNeto = 0;
-        double totalIva = 0;
+        double totalNeto  = 0;
+        double totalIva   = 0;
         double totalEnvio = 0;
 
-        for (Producto producto : p.getProductos()) {
+        for (Producto producto : pedido.getProductos()) {
             totalNeto += producto.getPrecio();
 
             if (producto instanceof ProductoFisico) {
-                ProductoFisico pf = (ProductoFisico) producto;
-                totalIva += pf.getPrecio() * 0.21;
-                totalEnvio += pf.costeEnvio(c.getPais());
+                ProductoFisico productoFisico = (ProductoFisico) producto;
+                totalIva   += productoFisico.getPrecio() * ProductoFisico.TASA_IVA;
+                totalEnvio += productoFisico.costeEnvio(cliente.getPais());
             }
         }
 
         double descuento = 0;
-        if (c.isEsVip()) {
-            descuento = totalNeto * 0.15;
-        } else if (c.getAñosAntiguedad() > 3) {
-            descuento = totalNeto * 0.10;
+        if (cliente.isEsVip()) {
+            descuento = totalNeto * DESCUENTO_VIP;
+        } else if (cliente.getAñosAntiguedad() > ANIOS_MINIMOS_DESCUENTO) {
+            descuento = totalNeto * DESCUENTO_ANTIGUEDAD;
         }
 
         double totalFinal = (totalNeto - descuento) + totalIva + totalEnvio;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tienda.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sistema-pedidos</a> &gt; <a href="index.source.html" class="el_package">com.proyecto</a> &gt; <span class="el_source">Tienda.java</span></div><h1>Tienda.java</h1><pre class="source lang-java linenums">package com.proyecto;
+
+/**
+ * Clase responsable de gestionar las ventas de la tienda.
+ * Actúa como punto de entrada para procesar un pedido y generar su factura.
+ */
+<span class="nc" id="L7">public class Tienda {</span>
+
+    private static final double DESCUENTO_VIP          = 0.15;
+    private static final double DESCUENTO_ANTIGUEDAD   = 0.10;
+    private static final int    ANIOS_MINIMOS_DESCUENTO = 3;
+
+    /**
+     * Procesa un pedido para un cliente y genera la factura correspondiente.
+     * Aplica un descuento del 15% si el cliente es VIP, o del 10% si tiene
+     * más de 3 años de antigüedad. El IVA y los gastos de envío solo se
+     * calculan para los productos físicos.
+     *
+     * @param cliente el cliente que realiza la compra
+     * @param pedido  el pedido con la lista de productos
+     * @return la {@link Factura} generada con el desglose completo de importes
+     * @throws NullPointerException  si el cliente o el pedido son null
+     * @throws IllegalStateException si el pedido no contiene ningún producto
+     */
+    public Factura realizarVenta(Cliente cliente, Pedido pedido) {
+
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (cliente == null) {</span>
+<span class="nc" id="L28">            throw new NullPointerException(&quot;El cliente no puede ser null&quot;);</span>
+        }
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (pedido == null) {</span>
+<span class="nc" id="L31">            throw new NullPointerException(&quot;El pedido no puede ser null&quot;);</span>
+        }
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (pedido.getProductos().isEmpty()) {</span>
+<span class="nc" id="L34">            throw new IllegalStateException(&quot;No se puede facturar un pedido sin productos&quot;);</span>
+        }
+
+<span class="nc" id="L37">        double totalNeto  = 0;</span>
+<span class="nc" id="L38">        double totalIva   = 0;</span>
+<span class="nc" id="L39">        double totalEnvio = 0;</span>
+
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        for (Producto producto : pedido.getProductos()) {</span>
+<span class="nc" id="L42">            totalNeto += producto.getPrecio();</span>
+
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (producto instanceof ProductoFisico) {</span>
+<span class="nc" id="L45">                ProductoFisico productoFisico = (ProductoFisico) producto;</span>
+<span class="nc" id="L46">                totalIva   += productoFisico.getPrecio() * ProductoFisico.TASA_IVA;</span>
+<span class="nc" id="L47">                totalEnvio += productoFisico.costeEnvio(cliente.getPais());</span>
+            }
+        }
+
+<span class="nc" id="L51">        double descuento = 0;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (cliente.isEsVip()) {</span>
+<span class="nc" id="L53">            descuento = totalNeto * DESCUENTO_VIP;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        } else if (cliente.getAñosAntiguedad() &gt; ANIOS_MINIMOS_DESCUENTO) {</span>
+<span class="nc" id="L55">            descuento = totalNeto * DESCUENTO_ANTIGUEDAD;</span>
+        }
+
+<span class="nc" id="L58">        double totalFinal = (totalNeto - descuento) + totalIva + totalEnvio;</span>
+
+<span class="nc" id="L60">        return new Factura(totalNeto, descuento, totalIva, totalEnvio, totalFinal);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

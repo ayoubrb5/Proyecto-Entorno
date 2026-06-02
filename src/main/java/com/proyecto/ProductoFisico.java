@@ -2,6 +2,10 @@ package com.proyecto;
 
 public class ProductoFisico extends Producto {
 
+    public static final double TASA_IVA = 0.21;
+    public static final double COSTE_ENVIO_EUROPA = 5.0;
+    public static final double COSTE_ENVIO_INTERNACIONAL = 10.0;
+
     private double costeEnvio;
     private double peso;
 
@@ -14,12 +18,10 @@ public class ProductoFisico extends Producto {
         this.peso = 0;
     }
 
-    // Getter del coste de envío
     public double getCosteEnvio() {
         return costeEnvio;
     }
 
-    // Getter y setter de peso
     public double getPeso() {
         return peso;
     }
@@ -31,21 +33,24 @@ public class ProductoFisico extends Producto {
         this.peso = peso;
     }
 
-    // Calcula el coste de envío según el país del cliente
+    /**
+     * Calcula el coste de envío según el país del cliente.
+     * @param pais país del cliente
+     * @return
+     */
     public double costeEnvio(String pais) {
         if (pais.equals("España")) {
             return 0;
         } else if (pais.equals("Francia") || pais.equals("Italia") || pais.equals("Portugal")) {
-            return 5;
+            return COSTE_ENVIO_EUROPA;
         } else {
-            return 10;
+            return COSTE_ENVIO_INTERNACIONAL;
         }
     }
 
-    // Precio final: precio base + 21% IVA + coste de envío
     @Override
     public double calcularPrecioFinal() {
-        return precio * 1.21 + costeEnvio;
+        return precio * (1 + TASA_IVA) + costeEnvio;
     }
 
     @Override
