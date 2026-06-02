@@ -2,6 +2,8 @@ package com.proyecto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductoFisicoTest {
@@ -25,9 +27,9 @@ class ProductoFisicoTest {
 
     @Test
     @DisplayName("T03 - El precio base se guarda correctamente")
-    void testGetPrecio() {
+    void testGetPrecioBase() {
         ProductoFisico p = new ProductoFisico("Monitor", 200.0, 10.0);
-        assertEquals(200.0, p.getPrecio(), 0.01);
+        assertEquals(200.0, p.getPrecioBase(), 0.01);
     }
 
     @Test
@@ -88,15 +90,67 @@ class ProductoFisicoTest {
     @Test
     @DisplayName("T42 - toString contiene la palabra fisico")
     void testToStringContieneFisico() {
-    ProductoFisico p = new ProductoFisico("Teclado", 50.0, 5.0);
-    assertTrue(p.toString().toLowerCase().contains("físico"));
+        ProductoFisico p = new ProductoFisico("Teclado", 50.0, 5.0);
+        assertTrue(p.toString().toLowerCase().contains("físico"));
     }
 
     @Test
     @DisplayName("T43 - toString contiene el coste de envio")
     void testToStringContieneEnvio() {
-    ProductoFisico p = new ProductoFisico("Teclado", 50.0, 5.0);
-    assertTrue(p.toString().contains("5.0"));
+        ProductoFisico p = new ProductoFisico("Teclado", 50.0, 5.0);
+        assertTrue(p.toString().contains("5.0"));
     }
-    
+
+    // ── TESTS costeEnvio(String pais) ────────────────────────────────────────
+
+    @Test
+    @DisplayName("T49 - costeEnvio devuelve 0 para España")
+    void testCosteEnvioEspana() {
+        ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
+        assertEquals(0.0, p.costeEnvio("España"), 0.01);
+    }
+
+    @Test
+    @DisplayName("T50 - costeEnvio devuelve 5 para Francia")
+    void testCosteEnvioFrancia() {
+        ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
+        assertEquals(5.0, p.costeEnvio("Francia"), 0.01);
+    }
+
+    @Test
+    @DisplayName("T51 - costeEnvio devuelve 5 para Italia")
+    void testCosteEnvioItalia() {
+        ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
+        assertEquals(5.0, p.costeEnvio("Italia"), 0.01);
+    }
+
+    @Test
+    @DisplayName("T52 - costeEnvio devuelve 5 para Portugal")
+    void testCosteEnvioPortugal() {
+        ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
+        assertEquals(5.0, p.costeEnvio("Portugal"), 0.01);
+    }
+
+    @Test
+    @DisplayName("T53 - costeEnvio devuelve 10 para un país no contemplado")
+    void testCosteEnvioOtroPais() {
+        ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
+        assertEquals(10.0, p.costeEnvio("Alemania"), 0.01);
+    }
+
+    @ParameterizedTest
+    @DisplayName("T54 - costeEnvio parametrizado por distintos países")
+    @CsvSource({
+        "España,    0.0",
+        "Francia,   5.0",
+        "Italia,    5.0",
+        "Portugal,  5.0",
+        "Alemania, 10.0",
+        "EEUU,     10.0",
+        "Japón,    10.0"
+    })
+    void testCosteEnvioParametrizado(String pais, double esperado) {
+        ProductoFisico p = new ProductoFisico("Producto", 50.0, 3.0);
+        assertEquals(esperado, p.costeEnvio(pais), 0.01);
+    }
 }

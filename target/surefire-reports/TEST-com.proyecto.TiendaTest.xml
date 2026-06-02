@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.ClienteTest" time="0.069" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.TiendaTest" time="0.033" tests="24" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,11 +59,28 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testGetEmail" classname="com.proyecto.ClienteTest" time="0.026"/>
-  <testcase name="testDosClientesMismoNombre" classname="com.proyecto.ClienteTest" time="0.002"/>
-  <testcase name="testGetDireccion" classname="com.proyecto.ClienteTest" time="0.001"/>
-  <testcase name="testGetNombre" classname="com.proyecto.ClienteTest" time="0.001"/>
-  <testcase name="testToStringContieneDireccion" classname="com.proyecto.ClienteTest" time="0.004"/>
-  <testcase name="testToStringContieneNombre" classname="com.proyecto.ClienteTest" time="0.001"/>
-  <testcase name="testToStringContieneEmail" classname="com.proyecto.ClienteTest" time="0.001"/>
+  <testcase name="testIntegracionClienteNormalAlemania" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testSinDescuento" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testDescuentoClienteAntiguo" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testRealizarVentaDevuelveFactura" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testIntegracionClienteAntiguoFrancia" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testPedidoNuloLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testPedidoVacioLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testTotalNetoEsSumaPrecios" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testIntegracionSoloProductosDigitales" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testEnvioSegunPais(String, double)[1]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testEnvioSegunPais(String, double)[2]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testEnvioSegunPais(String, double)[3]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testEnvioSegunPais(String, double)[4]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testEnvioSegunPais(String, double)[5]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testEnvioSegunPais(String, double)[6]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testIntegracionClienteVipEspana" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testClienteNuloLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.002"/>
+  <testcase name="testDescuentoClienteVip" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[1]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[2]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[3]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[4]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[5]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testIvaSoloEnFisicos" classname="com.proyecto.TiendaTest" time="0.002"/>
 </testsuite>

@@ -1,58 +1,77 @@
 package com.proyecto;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.time.LocalDate;
 
 public class Pedido {
 
-    private int numeroPedido;
-    private LocalDate fecha;
-    private Cliente cliente;
-    private ArrayList<Producto> productos;
-
-    // Contador estático para generar IDs automáticos
     private static int contadorPedidos = 1;
 
+    private int idPedido;
+    private LocalDate fecha;
+    private Cliente cliente;
+    private LinkedHashMap<Producto, Integer> cantidades;
+
     public Pedido(Cliente cliente) {
-    if (cliente == null) {
-        throw new NullPointerException("El pedido debe tener un cliente");
+        if (cliente == null) {
+            throw new NullPointerException("El pedido debe tener un cliente");
+        }
+        this.idPedido   = contadorPedidos;
+        contadorPedidos++;
+        this.fecha      = LocalDate.now();
+        this.cliente    = cliente;
+        this.cantidades = new LinkedHashMap<>();
     }
-    this.numeroPedido = contadorPedidos;
-    contadorPedidos++;
-    this.fecha = LocalDate.now();
-    this.cliente = cliente;
-    this.productos = new ArrayList<>();
-}
 
-public void agregarProducto(Producto p) {
-    if (p == null) {
-        throw new NullPointerException("El producto no puede ser null");
+    public void agregarProducto(Producto producto) {
+        if (producto == null) {
+            throw new NullPointerException("El producto no puede ser null");
+        }
+        cantidades.put(producto, 1);
     }
-    productos.add(p);
-}
 
-    // Suma el precio final de todos los productos
+    public void agregarProducto(Producto producto, int cantidad) {
+        if (producto == null) {
+            throw new NullPointerException("El producto no puede ser null");
+        }
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor que 0");
+        }
+        cantidades.put(producto, cantidad);
+    }
+
+    public void eliminarProducto(Producto producto) {
+        cantidades.remove(producto);
+    }
+
     public double calcularTotal() {
+        if (cantidades.isEmpty()) {
+            throw new IllegalStateException("El pedido no tiene productos");
+        }
         double total = 0;
-        for (Producto p : productos) {
-            total = total + p.calcularPrecioFinal();
+        for (Map.Entry<Producto, Integer> entrada : cantidades.entrySet()) {
+            total += entrada.getKey().calcularPrecioFinal() * entrada.getValue();
         }
         return total;
     }
 
-    // Muestra toda la información del pedido por pantalla
     public void mostrarResumen() {
         System.out.println("====================================");
-        System.out.println("        RESUMEN DEL PEDIDO #" + numeroPedido);
+        System.out.println("        RESUMEN DEL PEDIDO #" + idPedido);
         System.out.println("        Fecha: " + fecha);
         System.out.println("====================================");
         System.out.println(cliente);
         System.out.println("------------------------------------");
         System.out.println("Productos comprados:");
 
-        for (Producto p : productos) {
-            System.out.println("  - " + p);
-            System.out.println("    Precio final: " + String.format("%.2f", p.calcularPrecioFinal()) + "€");
+        for (Map.Entry<Producto, Integer> entrada : cantidades.entrySet()) {
+            Producto producto = entrada.getKey();
+            int cantidad      = entrada.getValue();
+            System.out.println("  - " + producto + " x" + cantidad);
+            System.out.println("    Precio final: "
+                    + String.format("%.2f", producto.calcularPrecioFinal() * cantidad) + "€");
         }
 
         System.out.println("------------------------------------");
@@ -61,8 +80,12 @@ public void agregarProducto(Producto p) {
     }
 
     // Getters
+    public int getIdPedido() {
+        return idPedido;
+    }
+
     public int getNumeroPedido() {
-        return numeroPedido;
+        return idPedido;
     }
 
     public LocalDate getFecha() {
@@ -74,6 +97,10 @@ public void agregarProducto(Producto p) {
     }
 
     public ArrayList<Producto> getProductos() {
-        return productos;
+        return new ArrayList<>(cantidades.keySet());
+    }
+
+    public LinkedHashMap<Producto, Integer> getCantidades() {
+        return cantidades;
     }
 }

@@ -9,8 +9,8 @@ public class ProductoDigital extends Producto {
 
     private String licencia;
 
-    public ProductoDigital(String nombre, double precio, String licencia) {
-        super(nombre, precio);
+    public ProductoDigital(String nombre, double precioBase, String licencia) {
+        super(nombre, precioBase);
         this.licencia = licencia;
     }
 
@@ -20,15 +20,14 @@ public class ProductoDigital extends Producto {
 
     @Override
     public double calcularPrecioFinal() {
-        return precio * (1 - DESCUENTO_DIGITAL);
+        return precioBase * (1 - DESCUENTO_DIGITAL);
     }
 
     /**
      * Devuelve el precio del producto con el tipo de IVA indicado aplicado.
-     *
-     * @param tipoIva tipo de IVA
-     * @return precio base más el IVA 
-     * @throws IllegalArgumentException si el tipo de IVA no es reconocido
+     * @param tipoIva
+     * @return 
+     * @throws IllegalArgumentException 
      */
     public double aplicarIVA(String tipoIva) {
         double porcentaje;
@@ -45,11 +44,11 @@ public class ProductoDigital extends Producto {
             default:
                 throw new IllegalArgumentException("Tipo de IVA no reconocido: " + tipoIva);
         }
-        return precio * (1 + porcentaje);
+        return precioBase * (1 + porcentaje);
     }
 
     @Override
     public String toString() {
-        return nombre + " (digital) - " + precio + "€ (10% descuento) | Licencia: " + licencia;
+        return nombre + " (digital) - " + precioBase + "€ (10% descuento) | Licencia: " + licencia;
     }
 }

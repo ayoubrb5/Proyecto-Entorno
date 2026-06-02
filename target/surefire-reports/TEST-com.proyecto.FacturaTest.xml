@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.ClienteTest" time="0.069" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.FacturaTest" time="0.036" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,11 +59,38 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testGetEmail" classname="com.proyecto.ClienteTest" time="0.026"/>
-  <testcase name="testDosClientesMismoNombre" classname="com.proyecto.ClienteTest" time="0.002"/>
-  <testcase name="testGetDireccion" classname="com.proyecto.ClienteTest" time="0.001"/>
-  <testcase name="testGetNombre" classname="com.proyecto.ClienteTest" time="0.001"/>
-  <testcase name="testToStringContieneDireccion" classname="com.proyecto.ClienteTest" time="0.004"/>
-  <testcase name="testToStringContieneNombre" classname="com.proyecto.ClienteTest" time="0.001"/>
-  <testcase name="testToStringContieneEmail" classname="com.proyecto.ClienteTest" time="0.001"/>
+  <testcase name="testMostrarDesgloseNoLanzaExcepcion" classname="com.proyecto.FacturaTest" time="0.016">
+    <system-out><![CDATA[========================================
+  FACTURA: FAC-001
+  Fecha:   2026-06-02
+========================================
+  Base neta:          100,00€
+  Descuento:       -   15,00€
+  IVA (21%):           21,00€
+  Gastos de envío:      5,00€
+----------------------------------------
+  TOTAL A PAGAR:      111,00€
+========================================
+]]></system-out>
+  </testcase>
+  <testcase name="testMostrarDesgloseEnFlujoReal" classname="com.proyecto.FacturaTest" time="0.005">
+    <system-out><![CDATA[========================================
+  FACTURA: FAC-002
+  Fecha:   2026-06-02
+========================================
+  Base neta:          190,00€
+  IVA (21%):           31,50€
+  Gastos de envío:      0,00€
+----------------------------------------
+  TOTAL A PAGAR:      221,50€
+========================================
+]]></system-out>
+  </testcase>
+  <testcase name="testGetTotalDescuento" classname="com.proyecto.FacturaTest" time="0.002"/>
+  <testcase name="testCodigoFacturaTienePrefijo" classname="com.proyecto.FacturaTest" time="0.001"/>
+  <testcase name="testFechaEmisionEsHoy" classname="com.proyecto.FacturaTest" time="0.001"/>
+  <testcase name="testGetTotalNeto" classname="com.proyecto.FacturaTest" time="0.001"/>
+  <testcase name="testGetTotalIva" classname="com.proyecto.FacturaTest" time="0.001"/>
+  <testcase name="testGetTotalEnvio" classname="com.proyecto.FacturaTest" time="0.001"/>
+  <testcase name="testGetTotalFinal" classname="com.proyecto.FacturaTest" time="0.001"/>
 </testsuite>

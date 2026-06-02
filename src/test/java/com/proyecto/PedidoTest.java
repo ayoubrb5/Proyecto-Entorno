@@ -12,14 +12,13 @@ class PedidoTest {
     private Cliente cliente;
     private Pedido pedido;
 
-    // Se ejecuta antes de cada test, crea un cliente y pedido limpios
     @BeforeEach
     void setUp() {
         cliente = new Cliente("Maria Lopez", "maria@gmail.com", "Calle Sol 25");
-        pedido = new Pedido(cliente);
+        pedido  = new Pedido(cliente);
     }
 
-    // ── TESTS POSITIVOS ──────────────────────────────────────────────────────
+    // ── TESTS POSITIVOS 
 
     @Test
     @DisplayName("T16 - calcularTotal devuelve la suma correcta de productos fisicos")
@@ -59,8 +58,7 @@ class PedidoTest {
         assertEquals(0, pedido.getProductos().size());
     }
 
-    // ── TESTS NEGATIVOS ──────────────────────────────────────────────────────
-
+    // ── TESTS NEGATIVOS 
     @Test
     @DisplayName("T21 - calcularTotal no devuelve 0 si hay productos")
     void testTotalNoEsCeroConProductos() {
@@ -84,9 +82,11 @@ class PedidoTest {
     }
 
     @Test
-    @DisplayName("T24 - El total de un pedido vacio es 0")
-    void testTotalPedidoVacioEsCero() {
-        assertEquals(0.0, pedido.calcularTotal(), 0.01);
+    @DisplayName("T24 - calcularTotal lanza IllegalStateException si el pedido está vacío")
+    void testTotalPedidoVacioLanzaExcepcion() {
+        assertThrows(IllegalStateException.class, () -> {
+            pedido.calcularTotal();
+        });
     }
 
     @Test
@@ -97,8 +97,7 @@ class PedidoTest {
         });
     }
 
-    // ── TESTS PARAMETRIZADOS ─────────────────────────────────────────────────
-
+    // ── TESTS PARAMETRIZADOS 
     @ParameterizedTest
     @DisplayName("T26 - calcularTotal con distintos productos fisicos")
     @CsvSource({
@@ -130,40 +129,66 @@ class PedidoTest {
     }
 
     @Test
+    @DisplayName("T33 - mostrarResumen no lanza ninguna excepcion")
+    void testMostrarResumenNoLanzaExcepcion() {
+        pedido.agregarProducto(new ProductoFisico("Teclado", 50.0, 5.0));
+        pedido.agregarProducto(new ProductoDigital("Office", 100.0, "Permanente"));
+        assertDoesNotThrow(() -> pedido.mostrarResumen());
+    }
+
+    @Test
     @DisplayName("T34 - getFecha devuelve la fecha de hoy")
     void testGetFecha() {
-    assertNotNull(pedido.getFecha());
+        assertNotNull(pedido.getFecha());
     }
 
     @Test
     @DisplayName("T35 - getNumeroPedido devuelve un numero mayor que 0")
     void testGetNumeroPedido() {
-    assertTrue(pedido.getNumeroPedido() > 0);
-    }
-
-    @Test
-    @DisplayName("T33 - mostrarResumen no lanza ninguna excepcion")
-    void testMostrarResumenNoLanzaExcepcion() {
-    pedido.agregarProducto(new ProductoFisico("Teclado", 50.0, 5.0));
-    pedido.agregarProducto(new ProductoDigital("Office", 100.0, "Permanente"));
-    assertDoesNotThrow(() -> pedido.mostrarResumen());
+        assertTrue(pedido.getNumeroPedido() > 0);
     }
 
     @Test
     @DisplayName("T36 - getProductos devuelve la lista correcta")
     void testGetProductos() {
-    ProductoFisico p = new ProductoFisico("Teclado", 50.0, 5.0);
-    pedido.agregarProducto(p);
-    assertTrue(pedido.getProductos().contains(p));
+        ProductoFisico p = new ProductoFisico("Teclado", 50.0, 5.0);
+        pedido.agregarProducto(p);
+        assertTrue(pedido.getProductos().contains(p));
     }
 
     @Test
     @DisplayName("T37 - calcularTotal mezcla fisicos y digitales correctamente")
     void testCalcularTotalMixto() {
-    pedido.agregarProducto(new ProductoFisico("Teclado", 100.0, 5.0));
-    pedido.agregarProducto(new ProductoDigital("Office", 100.0, "Permanente"));
-    // 126.0 + 90.0 = 216.0
-    assertEquals(216.0, pedido.calcularTotal(), 0.01);
+        pedido.agregarProducto(new ProductoFisico("Teclado", 100.0, 5.0));
+        pedido.agregarProducto(new ProductoDigital("Office", 100.0, "Permanente"));
+        // 126.0 + 90.0 = 216.0
+        assertEquals(216.0, pedido.calcularTotal(), 0.01);
+    }
+
+    // ── NUEVOS TESTS
+    @Test
+    @DisplayName("T74 - getIdPedido devuelve un número mayor que 0")
+    void testGetIdPedido() {
+        assertTrue(pedido.getIdPedido() > 0);
+    }
+
+    @Test
+    @DisplayName("T75 - eliminarProducto reduce el número de productos en el pedido")
+    void testEliminarProducto() {
+        ProductoFisico p = new ProductoFisico("Teclado", 50.0, 5.0);
+        pedido.agregarProducto(p);
+        assertEquals(1, pedido.getProductos().size());
+        pedido.eliminarProducto(p);
+        assertEquals(0, pedido.getProductos().size());
+    }
+
+    @Test
+    @DisplayName("T76 - agregarProducto con cantidad registra la cantidad indicada")
+    void testAgregarProductoConCantidad() {
+        ProductoFisico p = new ProductoFisico("Monitor", 200.0, 0.0);
+        pedido.agregarProducto(p, 3);
+        assertEquals(1, pedido.getProductos().size());   
+        assertEquals(3, (int) pedido.getCantidades().get(p)); 
     }
 
 }

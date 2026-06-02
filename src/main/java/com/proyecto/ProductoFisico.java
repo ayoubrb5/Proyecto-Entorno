@@ -2,20 +2,20 @@ package com.proyecto;
 
 public class ProductoFisico extends Producto {
 
-    public static final double TASA_IVA = 0.21;
-    public static final double COSTE_ENVIO_EUROPA = 5.0;
+    public static final double TASA_IVA                  = 0.21;
+    public static final double COSTE_ENVIO_EUROPA        = 5.0;
     public static final double COSTE_ENVIO_INTERNACIONAL = 10.0;
 
     private double costeEnvio;
     private double peso;
 
-    public ProductoFisico(String nombre, double precio, double costeEnvio) {
-        super(nombre, precio);
+    public ProductoFisico(String nombre, double precioBase, double costeEnvio) {
+        super(nombre, precioBase);
         if (costeEnvio < 0) {
             throw new IllegalArgumentException("El coste de envio no puede ser negativo");
         }
         this.costeEnvio = costeEnvio;
-        this.peso = 0;
+        this.peso       = 0;
     }
 
     public double getCosteEnvio() {
@@ -35,8 +35,9 @@ public class ProductoFisico extends Producto {
 
     /**
      * Calcula el coste de envío según el país del cliente.
+     *
      * @param pais país del cliente
-     * @return
+     * @return 
      */
     public double costeEnvio(String pais) {
         if (pais.equals("España")) {
@@ -50,11 +51,11 @@ public class ProductoFisico extends Producto {
 
     @Override
     public double calcularPrecioFinal() {
-        return precio * (1 + TASA_IVA) + costeEnvio;
+        return precioBase * (1 + TASA_IVA) + costeEnvio;
     }
 
     @Override
     public String toString() {
-        return nombre + " (físico) - " + precio + "€ + envío " + costeEnvio + "€";
+        return nombre + " (físico) - " + precioBase + "€ + envío " + costeEnvio + "€";
     }
 }

@@ -1,21 +1,22 @@
 package com.proyecto;
 
+import java.util.Map;
 
 public class Tienda {
 
-    private static final double DESCUENTO_VIP          = 0.15;
-    private static final double DESCUENTO_ANTIGUEDAD   = 0.10;
+    private static final double DESCUENTO_VIP           = 0.15;
+    private static final double DESCUENTO_ANTIGUEDAD    = 0.10;
     private static final int    ANIOS_MINIMOS_DESCUENTO = 3;
 
     /**
      * Procesa un pedido para un cliente y genera la factura correspondiente.
      * Aplica un descuento si el cliente es VIP, o si tiene
-     * más de 3 años de antigüedad.
+     * más de 3 años de antigüedad. 
      *
      * @param cliente 
      * @param pedido  
      * @return la {@link Factura} 
-     * @throws NullPointerException  
+     * @throws NullPointerException 
      * @throws IllegalStateException 
      */
     public Factura realizarVenta(Cliente cliente, Pedido pedido) {
@@ -34,13 +35,16 @@ public class Tienda {
         double totalIva   = 0;
         double totalEnvio = 0;
 
-        for (Producto producto : pedido.getProductos()) {
-            totalNeto += producto.getPrecio();
+        for (Map.Entry<Producto, Integer> entrada : pedido.getCantidades().entrySet()) {
+            Producto producto = entrada.getKey();
+            int cantidad      = entrada.getValue();
+
+            totalNeto += producto.getPrecioBase() * cantidad;
 
             if (producto instanceof ProductoFisico) {
                 ProductoFisico productoFisico = (ProductoFisico) producto;
-                totalIva   += productoFisico.getPrecio() * ProductoFisico.TASA_IVA;
-                totalEnvio += productoFisico.costeEnvio(cliente.getPais());
+                totalIva   += productoFisico.getPrecioBase() * ProductoFisico.TASA_IVA * cantidad;
+                totalEnvio += productoFisico.costeEnvio(cliente.getPais()) * cantidad;
             }
         }
 

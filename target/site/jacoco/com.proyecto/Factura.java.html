@@ -2,13 +2,10 @@
 
 import java.time.LocalDate;
 
-/**
- * Representa la factura generada tras procesar un pedido en la tienda.
- * Almacena el desglose de importes y permite imprimirlo por consola.
- */
+
 public class Factura {
 
-<span class="nc" id="L11">    private static int contadorFacturas = 1;</span>
+<span class="fc" id="L8">    private static int contadorFacturas = 1;</span>
 
     private String    codigoFactura;
     private LocalDate fechaEmision;
@@ -19,108 +16,96 @@ public class Factura {
     private double    totalFinal;
 
     /**
-     * Crea una nueva factura con los importes desglosados.
-     * El código de factura se genera automáticamente con el formato FAC-001, FAC-002, etc.
-     *
-     * @param totalNeto      suma de los precios base de todos los productos
-     * @param totalDescuento descuento por fidelidad aplicado sobre el total neto
-     * @param totalIva       importe total de IVA de los productos físicos
-     * @param totalEnvio     coste total de envío según el país del cliente
-     * @param totalFinal     importe definitivo a pagar
+     * Crea una nueva factura con los importes
+     * El código de factura se genera automáticamente
+     * @param totalNeto 
+     * @param totalDescuento 
+     * @param totalIva       
+     * @param totalEnvio     
+     * @param totalFinal     
      */
-<span class="nc" id="L31">    public Factura(double totalNeto, double totalDescuento, double totalIva,</span>
+<span class="fc" id="L27">    public Factura(double totalNeto, double totalDescuento, double totalIva,</span>
                    double totalEnvio, double totalFinal) {
-<span class="nc" id="L33">        this.codigoFactura  = &quot;FAC-&quot; + String.format(&quot;%03d&quot;, contadorFacturas);</span>
-<span class="nc" id="L34">        contadorFacturas++;</span>
-<span class="nc" id="L35">        this.fechaEmision   = LocalDate.now();</span>
-<span class="nc" id="L36">        this.totalNeto      = totalNeto;</span>
-<span class="nc" id="L37">        this.totalDescuento = totalDescuento;</span>
-<span class="nc" id="L38">        this.totalIva       = totalIva;</span>
-<span class="nc" id="L39">        this.totalEnvio     = totalEnvio;</span>
-<span class="nc" id="L40">        this.totalFinal     = totalFinal;</span>
-<span class="nc" id="L41">    }</span>
+<span class="fc" id="L29">        this.codigoFactura  = &quot;FAC-&quot; + String.format(&quot;%03d&quot;, contadorFacturas);</span>
+<span class="fc" id="L30">        contadorFacturas++;</span>
+<span class="fc" id="L31">        this.fechaEmision   = LocalDate.now();</span>
+<span class="fc" id="L32">        this.totalNeto      = totalNeto;</span>
+<span class="fc" id="L33">        this.totalDescuento = totalDescuento;</span>
+<span class="fc" id="L34">        this.totalIva       = totalIva;</span>
+<span class="fc" id="L35">        this.totalEnvio     = totalEnvio;</span>
+<span class="fc" id="L36">        this.totalFinal     = totalFinal;</span>
+<span class="fc" id="L37">    }</span>
 
-    /**
-     * Imprime por consola el desglose completo de la factura:
-     * base neta, descuento (si lo hay), IVA, gastos de envío y total a pagar.
-     */
     public void mostrarDesglose() {
-<span class="nc" id="L48">        System.out.println(&quot;========================================&quot;);</span>
-<span class="nc" id="L49">        System.out.println(&quot;  FACTURA: &quot; + codigoFactura);</span>
-<span class="nc" id="L50">        System.out.println(&quot;  Fecha:   &quot; + fechaEmision);</span>
-<span class="nc" id="L51">        System.out.println(&quot;========================================&quot;);</span>
-<span class="nc" id="L52">        System.out.printf(&quot;  Base neta:        %8.2f€%n&quot;, totalNeto);</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (totalDescuento &gt; 0) {</span>
-<span class="nc" id="L54">            System.out.printf(&quot;  Descuento:       -%8.2f€%n&quot;, totalDescuento);</span>
+<span class="fc" id="L40">        System.out.println(&quot;========================================&quot;);</span>
+<span class="fc" id="L41">        System.out.println(&quot;  FACTURA: &quot; + codigoFactura);</span>
+<span class="fc" id="L42">        System.out.println(&quot;  Fecha:   &quot; + fechaEmision);</span>
+<span class="fc" id="L43">        System.out.println(&quot;========================================&quot;);</span>
+<span class="fc" id="L44">        System.out.printf(&quot;  Base neta:        %8.2f€%n&quot;, totalNeto);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (totalDescuento &gt; 0) {</span>
+<span class="fc" id="L46">            System.out.printf(&quot;  Descuento:       -%8.2f€%n&quot;, totalDescuento);</span>
         }
-<span class="nc" id="L56">        System.out.printf(&quot;  IVA (21%%):        %8.2f€%n&quot;, totalIva);</span>
-<span class="nc" id="L57">        System.out.printf(&quot;  Gastos de envío:  %8.2f€%n&quot;, totalEnvio);</span>
-<span class="nc" id="L58">        System.out.println(&quot;----------------------------------------&quot;);</span>
-<span class="nc" id="L59">        System.out.printf(&quot;  TOTAL A PAGAR:    %8.2f€%n&quot;, totalFinal);</span>
-<span class="nc" id="L60">        System.out.println(&quot;========================================&quot;);</span>
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L48">        System.out.printf(&quot;  IVA (21%%):        %8.2f€%n&quot;, totalIva);</span>
+<span class="fc" id="L49">        System.out.printf(&quot;  Gastos de envío:  %8.2f€%n&quot;, totalEnvio);</span>
+<span class="fc" id="L50">        System.out.println(&quot;----------------------------------------&quot;);</span>
+<span class="fc" id="L51">        System.out.printf(&quot;  TOTAL A PAGAR:    %8.2f€%n&quot;, totalFinal);</span>
+<span class="fc" id="L52">        System.out.println(&quot;========================================&quot;);</span>
+<span class="fc" id="L53">    }</span>
 
     /**
-     * Devuelve el código único de la factura (ej. &quot;FAC-001&quot;).
-     *
+     * Devuelve el código único de la factura
      * @return código de factura
      */
     public String getCodigoFactura() {
-<span class="nc" id="L69">        return codigoFactura;</span>
+<span class="fc" id="L60">        return codigoFactura;</span>
     }
 
     /**
      * Devuelve la fecha en que se emitió la factura.
-     *
      * @return fecha de emisión
      */
     public LocalDate getFechaEmision() {
-<span class="nc" id="L78">        return fechaEmision;</span>
+<span class="fc" id="L68">        return fechaEmision;</span>
     }
 
     /**
-     * Devuelve la suma de los precios base de todos los productos, antes de descuentos e impuestos.
-     *
+     * Devuelve la suma de los precios base de todos los productos
      * @return total neto
      */
     public double getTotalNeto() {
-<span class="nc" id="L87">        return totalNeto;</span>
+<span class="fc" id="L76">        return totalNeto;</span>
     }
 
     /**
-     * Devuelve el importe descontado por fidelidad (VIP o antigüedad).
-     *
-     * @return descuento aplicado, o 0 si no corresponde ninguno
+     * Devuelve el importe descontado
+     * @return descuento aplicado o 0 
      */
     public double getTotalDescuento() {
-<span class="nc" id="L96">        return totalDescuento;</span>
+<span class="fc" id="L84">        return totalDescuento;</span>
     }
 
     /**
-     * Devuelve el importe total de IVA correspondiente a los productos físicos.
-     *
+     * Devuelve el importe total de IVA a los productos físicos.
      * @return total de IVA
      */
     public double getTotalIva() {
-<span class="nc" id="L105">        return totalIva;</span>
+<span class="fc" id="L92">        return totalIva;</span>
     }
 
     /**
      * Devuelve el coste total de envío calculado según el país del cliente.
-     *
      * @return total de gastos de envío
      */
     public double getTotalEnvio() {
-<span class="nc" id="L114">        return totalEnvio;</span>
+<span class="fc" id="L100">        return totalEnvio;</span>
     }
 
     /**
      * Devuelve el importe final que debe pagar el cliente.
-     *
      * @return total final a pagar
      */
     public double getTotalFinal() {
-<span class="nc" id="L123">        return totalFinal;</span>
+<span class="fc" id="L108">        return totalFinal;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

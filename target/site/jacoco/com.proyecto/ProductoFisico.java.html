@@ -2,20 +2,20 @@
 
 public class ProductoFisico extends Producto {
 
-    public static final double TASA_IVA              = 0.21;
-    public static final double COSTE_ENVIO_EUROPA    = 5.0;
+    public static final double TASA_IVA                  = 0.21;
+    public static final double COSTE_ENVIO_EUROPA        = 5.0;
     public static final double COSTE_ENVIO_INTERNACIONAL = 10.0;
 
     private double costeEnvio;
     private double peso;
 
-    public ProductoFisico(String nombre, double precio, double costeEnvio) {
-<span class="fc" id="L13">        super(nombre, precio);</span>
+    public ProductoFisico(String nombre, double precioBase, double costeEnvio) {
+<span class="fc" id="L13">        super(nombre, precioBase);</span>
 <span class="fc bfc" id="L14" title="All 2 branches covered.">        if (costeEnvio &lt; 0) {</span>
 <span class="fc" id="L15">            throw new IllegalArgumentException(&quot;El coste de envio no puede ser negativo&quot;);</span>
         }
 <span class="fc" id="L17">        this.costeEnvio = costeEnvio;</span>
-<span class="fc" id="L18">        this.peso = 0;</span>
+<span class="fc" id="L18">        this.peso       = 0;</span>
 <span class="fc" id="L19">    }</span>
 
     public double getCosteEnvio() {
@@ -34,29 +34,29 @@ public class ProductoFisico extends Producto {
 <span class="nc" id="L34">    }</span>
 
     /**
-     * Calcula el coste de envío según el país de destino del cliente.
+     * Calcula el coste de envío dinámico según el país de destino del cliente.
      *
      * @param pais país del cliente
      * @return 0.0 si es España, 5.0 si es Europa próxima, 10.0 para el resto
      */
     public double costeEnvio(String pais) {
-<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (pais.equals(&quot;España&quot;)) {</span>
-<span class="nc" id="L44">            return 0;</span>
-<span class="nc bnc" id="L45" title="All 6 branches missed.">        } else if (pais.equals(&quot;Francia&quot;) || pais.equals(&quot;Italia&quot;) || pais.equals(&quot;Portugal&quot;)) {</span>
-<span class="nc" id="L46">            return COSTE_ENVIO_EUROPA;</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (pais.equals(&quot;España&quot;)) {</span>
+<span class="fc" id="L44">            return 0;</span>
+<span class="fc bfc" id="L45" title="All 6 branches covered.">        } else if (pais.equals(&quot;Francia&quot;) || pais.equals(&quot;Italia&quot;) || pais.equals(&quot;Portugal&quot;)) {</span>
+<span class="fc" id="L46">            return COSTE_ENVIO_EUROPA;</span>
         } else {
-<span class="nc" id="L48">            return COSTE_ENVIO_INTERNACIONAL;</span>
+<span class="fc" id="L48">            return COSTE_ENVIO_INTERNACIONAL;</span>
         }
     }
 
     @Override
     public double calcularPrecioFinal() {
-<span class="fc" id="L54">        return precio * (1 + TASA_IVA) + costeEnvio;</span>
+<span class="fc" id="L54">        return precioBase * (1 + TASA_IVA) + costeEnvio;</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L59">        return nombre + &quot; (físico) - &quot; + precio + &quot;€ + envío &quot; + costeEnvio + &quot;€&quot;;</span>
+<span class="fc" id="L59">        return nombre + &quot; (físico) - &quot; + precioBase + &quot;€ + envío &quot; + costeEnvio + &quot;€&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
