@@ -1,0 +1,6 @@
+projectKey=sistema-pedidos
+serverUrl=http://localhost:9000
+serverVersion=26.3.0.120487
+dashboardUrl=http://localhost:9000/dashboard?id=sistema-pedidos
+ceTaskId=df067086-2410-4888-8c1f-77db8a268d21
+ceTaskUrl=http://localhost:9000/api/ce/task?id=df067086-2410-4888-8c1f-77db8a268d21
