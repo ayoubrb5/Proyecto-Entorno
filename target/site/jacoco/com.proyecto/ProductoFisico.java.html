@@ -1,31 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductoFisico.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sistema-pedidos</a> &gt; <a href="index.source.html" class="el_package">com.proyecto</a> &gt; <span class="el_source">ProductoFisico.java</span></div><h1>ProductoFisico.java</h1><pre class="source lang-java linenums">package com.proyecto;
- 
+
 public class ProductoFisico extends Producto {
- 
+
     private double costeEnvio;
- 
+    private double peso;
+
     public ProductoFisico(String nombre, double precio, double costeEnvio) {
-<span class="fc" id="L8">    super(nombre, precio);</span>
-<span class="fc bfc" id="L9" title="All 2 branches covered.">    if (costeEnvio &lt; 0) {</span>
-<span class="fc" id="L10">        throw new IllegalArgumentException(&quot;El coste de envio no puede ser negativo&quot;);</span>
-    }
-<span class="fc" id="L12">    this.costeEnvio = costeEnvio;</span>
-<span class="fc" id="L13">}</span>
- 
-    // Getter
+<span class="fc" id="L9">        super(nombre, precio);</span>
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        if (costeEnvio &lt; 0) {</span>
+<span class="fc" id="L11">            throw new IllegalArgumentException(&quot;El coste de envio no puede ser negativo&quot;);</span>
+        }
+<span class="fc" id="L13">        this.costeEnvio = costeEnvio;</span>
+<span class="fc" id="L14">        this.peso = 0;</span>
+<span class="fc" id="L15">    }</span>
+
+    // Getter del coste de envío almacenado
     public double getCosteEnvio() {
-<span class="fc" id="L17">        return costeEnvio;</span>
+<span class="fc" id="L19">        return costeEnvio;</span>
     }
- 
+
+    // Getter y setter de peso
+    public double getPeso() {
+<span class="nc" id="L24">        return peso;</span>
+    }
+
+    public void setPeso(double peso) {
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (peso &lt; 0) {</span>
+<span class="nc" id="L29">            throw new IllegalArgumentException(&quot;El peso no puede ser negativo&quot;);</span>
+        }
+<span class="nc" id="L31">        this.peso = peso;</span>
+<span class="nc" id="L32">    }</span>
+
+    // Calcula el coste de envío dinámico según el país del cliente
+    public double costeEnvio(String pais) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (pais.equals(&quot;España&quot;)) {</span>
+<span class="nc" id="L37">            return 0;</span>
+<span class="nc bnc" id="L38" title="All 6 branches missed.">        } else if (pais.equals(&quot;Francia&quot;) || pais.equals(&quot;Italia&quot;) || pais.equals(&quot;Portugal&quot;)) {</span>
+<span class="nc" id="L39">            return 5;</span>
+        } else {
+<span class="nc" id="L41">            return 10;</span>
+        }
+    }
+
     // Precio final: precio base + 21% IVA + coste de envío
     @Override
     public double calcularPrecioFinal() {
-<span class="fc" id="L23">        return precio * 1.21 + costeEnvio;</span>
+<span class="fc" id="L48">        return precio * 1.21 + costeEnvio;</span>
     }
- 
+
     @Override
     public String toString() {
-<span class="fc" id="L28">        return nombre + &quot; (físico) - &quot; + precio + &quot;€ + envío &quot; + costeEnvio + &quot;€&quot;;</span>
+<span class="fc" id="L53">        return nombre + &quot; (físico) - &quot; + precio + &quot;€ + envío &quot; + costeEnvio + &quot;€&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

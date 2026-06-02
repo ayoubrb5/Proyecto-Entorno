@@ -12,16 +12,24 @@ public abstract class Producto {
     this.nombre = nombre;
     this.precio = precio;
 }
-    // Método abstracto: cada subclase lo implementa a su manera
+    // Método abstracto
     public abstract double calcularPrecioFinal();
  
     // Getters
     public String getNombre() {
         return nombre;
     }
- 
+
     public double getPrecio() {
         return precio;
+    }
+
+    // Setter con validación
+    public void setPrecio(double precio) {
+        if (precio < 0) {
+            throw new IllegalArgumentException("El precio no puede ser negativo");
+        }
+        this.precio = precio;
     }
  
     @Override

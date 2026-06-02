@@ -19,14 +19,22 @@ public abstract class Producto {
     public String getNombre() {
 <span class="fc" id="L20">        return nombre;</span>
     }
- 
+
     public double getPrecio() {
 <span class="fc" id="L24">        return precio;</span>
     }
+
+    // Setter con validación
+    public void setPrecio(double precio) {
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (precio &lt; 0) {</span>
+<span class="nc" id="L30">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo&quot;);</span>
+        }
+<span class="nc" id="L32">        this.precio = precio;</span>
+<span class="nc" id="L33">    }</span>
  
     @Override
     public String toString() {
-<span class="nc" id="L29">        return nombre + &quot; - &quot; + precio + &quot;€&quot;;</span>
+<span class="nc" id="L37">        return nombre + &quot; - &quot; + precio + &quot;€&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

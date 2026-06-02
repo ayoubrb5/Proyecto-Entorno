@@ -20,6 +20,24 @@ public class ProductoDigital extends Producto {
         return precio * 0.90;
     }
 
+    public double aplicarIVA(String tipoIva) {
+        double porcentaje;
+        switch (tipoIva) {
+            case "GENERAL":
+                porcentaje = 0.21;
+                break;
+            case "REDUCIDO":
+                porcentaje = 0.10;
+                break;
+            case "SUPER":
+                porcentaje = 0.04;
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de IVA no reconocido: " + tipoIva);
+        }
+        return precio * (1 + porcentaje);
+    }
+
     @Override
     public String toString() {
         return nombre + " (digital) - " + precio + "€ (10% descuento) | Licencia: " + licencia;
