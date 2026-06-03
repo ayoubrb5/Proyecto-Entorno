@@ -20,15 +20,15 @@ public class ProductoDigital extends Producto {
 
     @Override
     public double calcularPrecioFinal() {
-<span class="fc" id="L23">        return precioBase * (1 - DESCUENTO_DIGITAL);</span>
+<span class="fc" id="L23">        return getPrecioBase() * (1 - DESCUENTO_DIGITAL);</span>
     }
 
     /**
-     * Devuelve el precio del producto con el tipo de IVA indicado aplicado.
+     * Devuelve el precio del producto con el tipo de IVA indicado aplicado sobre el precio base.
      *
-     * @param tipoIva tipo de IVA: &quot;GENERAL&quot; (21%), &quot;REDUCIDO&quot; (10%) o &quot;SUPER&quot; (4%)
+     * @param tipoIva tipo de IVA a aplicar: {@code &quot;GENERAL&quot;} (21%), {@code &quot;REDUCIDO&quot;} (10%) o {@code &quot;SUPER&quot;} (4%)
      * @return precio base más el IVA correspondiente
-     * @throws IllegalArgumentException si el tipo de IVA no es reconocido
+     * @throws IllegalArgumentException si {@code tipoIva} no es uno de los valores reconocidos
      */
     public double aplicarIVA(String tipoIva) {
         double porcentaje;
@@ -45,12 +45,14 @@ public class ProductoDigital extends Producto {
             default:
 <span class="fc" id="L46">                throw new IllegalArgumentException(&quot;Tipo de IVA no reconocido: &quot; + tipoIva);</span>
         }
-<span class="fc" id="L48">        return precioBase * (1 + porcentaje);</span>
+<span class="fc" id="L48">        return getPrecioBase() * (1 + porcentaje);</span>
     }
 
     @Override
     public String toString() {
-<span class="fc" id="L53">        return nombre + &quot; (digital) - &quot; + precioBase + &quot;€ (10% descuento) | Licencia: &quot; + licencia;</span>
+<span class="fc" id="L53">        int descuentoPct = (int) (DESCUENTO_DIGITAL * 100);</span>
+<span class="fc" id="L54">        return getNombre() + &quot; (digital) - &quot; + getPrecioBase() + &quot;€ (&quot; + descuentoPct</span>
+                + &quot;% descuento) | Licencia: &quot; + licencia;
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

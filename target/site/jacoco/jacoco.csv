@@ -1,9 +1,9 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 sistema-pedidos,com.proyecto,Factura,0,150,0,2,0,31,0,11,0,10
 sistema-pedidos,com.proyecto,Producto,22,43,2,2,6,11,4,5,3,4
-sistema-pedidos,com.proyecto,Tienda,0,123,0,14,0,25,0,9,0,2
+sistema-pedidos,com.proyecto,Tienda,0,123,0,14,0,26,0,9,0,2
 sistema-pedidos,com.proyecto,Cliente,31,66,0,0,15,18,8,9,8,9
-sistema-pedidos,com.proyecto,Pedido,10,216,2,12,2,49,2,18,0,13
+sistema-pedidos,com.proyecto,Pedido,10,217,2,12,2,51,2,18,0,13
 sistema-pedidos,com.proyecto,ProductoFisico,16,61,2,10,5,14,3,10,2,5
 sistema-pedidos,com.proyecto,Main,94,0,0,0,21,0,2,0,2,0
-sistema-pedidos,com.proyecto,ProductoDigital,0,51,0,4,0,15,0,8,0,5
+sistema-pedidos,com.proyecto,ProductoDigital,0,57,0,4,0,16,0,8,0,5

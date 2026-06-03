@@ -2,7 +2,12 @@ package com.proyecto;
 
 import java.time.LocalDate;
 
-
+/**
+ * Representa la factura generada tras procesar una venta en {@link Tienda}.
+ * Almacena el desglose completo de importes: base neta, descuento aplicado,
+ * IVA de productos físicos, gastos de envío y total final a pagar.
+ * El código de factura se genera automáticamente con el formato {@code FAC-NNN}.
+ */
 public class Factura {
 
     private static int contadorFacturas = 1;
@@ -16,13 +21,14 @@ public class Factura {
     private double    totalFinal;
 
     /**
-     * Crea una nueva factura con los importes
-     * El código de factura se genera automáticamente
-     * @param totalNeto 
+     * Crea una nueva factura con los importes desglosados.
+     * El código de factura se genera automáticamente 
+     *
+     * @param totalNeto      suma de los precios base de todos los productos
      * @param totalDescuento 
-     * @param totalIva       
-     * @param totalEnvio     
-     * @param totalFinal     
+     * @param totalIva       total de IVA aplicado a los productos físicos
+     * @param totalEnvio     total de gastos de envío según el país del cliente
+     * @param totalFinal     importe final a pagar
      */
     public Factura(double totalNeto, double totalDescuento, double totalIva,
                    double totalEnvio, double totalFinal) {
@@ -45,7 +51,7 @@ public class Factura {
         if (totalDescuento > 0) {
             System.out.printf("  Descuento:       -%8.2f€%n", totalDescuento);
         }
-        System.out.printf("  IVA (21%%):        %8.2f€%n", totalIva);
+        System.out.printf("  IVA:              %8.2f€%n", totalIva);
         System.out.printf("  Gastos de envío:  %8.2f€%n", totalEnvio);
         System.out.println("----------------------------------------");
         System.out.printf("  TOTAL A PAGAR:    %8.2f€%n", totalFinal);
@@ -78,14 +84,14 @@ public class Factura {
 
     /**
      * Devuelve el importe descontado
-     * @return descuento aplicado o 0 
+     * @return descuento aplicado o 0
      */
     public double getTotalDescuento() {
         return totalDescuento;
     }
 
     /**
-     * Devuelve el importe total de IVA a los productos físicos.
+     * Devuelve el importe total de IVA aplicado a los productos físicos.
      * @return total de IVA
      */
     public double getTotalIva() {

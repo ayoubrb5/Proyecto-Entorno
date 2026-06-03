@@ -83,7 +83,7 @@ class TiendaTest {
         assertEquals(21.0, factura.getTotalIva(), 0.01); // solo 100 * 21%
     }
 
-    // ── PRUEBAS DE EXCEPCIONES ───────────────────────────────────────────────
+    // ── PRUEBAS DE EXCEPCIONES 
 
     @Test
     @DisplayName("T61 - pedido sin productos lanza IllegalStateException")
@@ -112,7 +112,7 @@ class TiendaTest {
         });
     }
 
-    // ── PRUEBAS PARAMETRIZADAS ───────────────────────────────────────────────
+    // ── PRUEBAS PARAMETRIZADAS 
 
     @ParameterizedTest
     @DisplayName("T64 - totalEnvio calculado correctamente según el país del cliente")
@@ -135,11 +135,11 @@ class TiendaTest {
     @ParameterizedTest
     @DisplayName("T65 - totalFinal correcto con distintos precios base (sin descuento, España)")
     @CsvSource({
-        " 50.0,  60.50",   //  50 + 50*0.21 + 0 = 60.5
-        "200.0, 242.00",   // 200 + 42      + 0 = 242
-        " 75.0,  90.75",   //  75 + 15.75   + 0 = 90.75
-        "100.0, 121.00",   // 100 + 21      + 0 = 121
-        " 30.0,  36.30"    //  30 + 6.3     + 0 = 36.3
+        " 50.0,  60.50",   
+        "200.0, 242.00",   
+        " 75.0,  90.75",   
+        "100.0, 121.00",   
+        " 30.0,  36.30"  
     })
     void testTotalFinalParametrizado(double precio, double totalEsperado) {
         Pedido pedido = new Pedido(clienteNormal);
@@ -148,12 +148,11 @@ class TiendaTest {
         assertEquals(totalEsperado, factura.getTotalFinal(), 0.01);
     }
 
-    // ── PRUEBAS DE INTEGRACIÓN (flujo completo Cliente→Pedido→Tienda→Factura) ─
+    // ── PRUEBAS DE INTEGRACIÓN 
 
     @Test
     @DisplayName("INT-01 - Cliente VIP en España: descuento 15%, IVA físico, envío gratis")
     void testIntegracionClienteVipEspana() {
-        // totalNeto=180, descuento=27(15%), IVA=21, envío=0 → totalFinal=174
         Cliente cliente = new Cliente("I001", "Ana Garcia", "ana@test.com", "Gran Via 1", 5, true, "España");
         Pedido pedido = new Pedido(cliente);
         pedido.agregarProducto(new ProductoFisico("Teclado", 100.0, 5.0));
@@ -173,7 +172,6 @@ class TiendaTest {
     @Test
     @DisplayName("INT-02 - Cliente con antigüedad en Francia: descuento 10%, envío Europa")
     void testIntegracionClienteAntiguoFrancia() {
-        // totalNeto=250, descuento=25(10%), IVA=52.5, envío=10 → totalFinal=287.5
         Cliente cliente = new Cliente("I002", "Pierre Dupont", "pierre@test.com", "Rue 5", 4, false, "Francia");
         Pedido pedido = new Pedido(cliente);
         pedido.agregarProducto(new ProductoFisico("Monitor", 200.0, 0.0));
@@ -191,7 +189,6 @@ class TiendaTest {
     @Test
     @DisplayName("INT-03 - Cliente normal en Alemania: sin descuento, envío internacional")
     void testIntegracionClienteNormalAlemania() {
-        // totalNeto=30, descuento=0, IVA=6.3, envío=10 → totalFinal=46.3
         Cliente cliente = new Cliente("I003", "Hans Muller", "hans@test.com", "Berlinerstr 7", 1, false, "Alemania");
         Pedido pedido = new Pedido(cliente);
         pedido.agregarProducto(new ProductoFisico("Raton", 30.0, 0.0));
@@ -208,7 +205,6 @@ class TiendaTest {
     @Test
     @DisplayName("INT-04 - Pedido solo con digitales: sin IVA ni envío")
     void testIntegracionSoloProductosDigitales() {
-        // totalNeto=180, descuento=0, IVA=0, envío=0 → totalFinal=180
         Cliente cliente = new Cliente("I004", "Laura Perez", "laura@test.com", "Calle Luna 3", 0, false, "España");
         Pedido pedido = new Pedido(cliente);
         pedido.agregarProducto(new ProductoDigital("Antivirus", 120.0, "Anual"));
@@ -223,6 +219,27 @@ class TiendaTest {
         assertEquals(180.0, factura.getTotalFinal(),     0.01);
     }
 
-    // REGRESIÓN: T57/T58/T59 garantizan que los tres tramos de descuento
-    // (VIP, antigüedad, ninguno) funcionan independientemente del país
+    @Test
+    @DisplayName("T77 - cliente con exactamente 3 años NO recibe descuento de antigüedad (valor límite)")
+    void testSinDescuentoCon3AnosExactos() {
+        Cliente cliente3 = new Cliente("BVT1", "Test Limite", "t@t.com", "Dir 0", 3, false, "España");
+        Pedido pedido = new Pedido(cliente3);
+        pedido.agregarProducto(new ProductoFisico("Producto", 100.0, 0.0));
+        Factura factura = tienda.realizarVenta(cliente3, pedido);
+        assertEquals(0.0, factura.getTotalDescuento(), 0.01);
+    }
+
+    @Test
+    @DisplayName("T78 - IVA y envío se multiplican correctamente con cantidad mayor que 1")
+    void testIvaYEnvioConCantidadMayorQueUno() {
+        Cliente cliente = new Cliente("BVT2", "Test Cant", "c@t.com", "Dir 1", 0, false, "Francia");
+        Pedido pedido = new Pedido(cliente);
+        pedido.agregarProducto(new ProductoFisico("Raton", 30.0, 0.0), 2);
+        Factura factura = tienda.realizarVenta(cliente, pedido);
+        assertEquals(60.0,  factura.getTotalNeto(),  0.01);
+        assertEquals(12.6,  factura.getTotalIva(),   0.01);
+        assertEquals(10.0,  factura.getTotalEnvio(), 0.01);
+        assertEquals(82.6,  factura.getTotalFinal(), 0.01);
+    }
+
 }

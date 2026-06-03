@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductoFisicoTest {
 
-    // ── TESTS POSITIVOS ──────────────────────────────────────────────────────
+    // ── TESTS POSITIVOS
 
     @Test
     @DisplayName("T01 - El precio final incluye IVA 21% y coste de envio")
@@ -47,7 +47,7 @@ class ProductoFisicoTest {
         assertTrue(p.toString().contains("69.99"));
     }
 
-    // ── TESTS NEGATIVOS ──────────────────────────────────────────────────────
+    // ── TESTS NEGATIVOS 
 
     @Test
     @DisplayName("T06 - El precio final NO es igual al precio base sin IVA")
@@ -101,45 +101,45 @@ class ProductoFisicoTest {
         assertTrue(p.toString().contains("5.0"));
     }
 
-    // ── TESTS costeEnvio(String pais) ────────────────────────────────────────
+    // ── TESTS calcularCosteEnvio
 
     @Test
-    @DisplayName("T49 - costeEnvio devuelve 0 para España")
+    @DisplayName("T49 - calcularCosteEnvio devuelve 0 para España")
     void testCosteEnvioEspana() {
         ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
-        assertEquals(0.0, p.costeEnvio("España"), 0.01);
+        assertEquals(0.0, p.calcularCosteEnvio("España"), 0.01);
     }
 
     @Test
-    @DisplayName("T50 - costeEnvio devuelve 5 para Francia")
+    @DisplayName("T50 - calcularCosteEnvio devuelve 5 para Francia")
     void testCosteEnvioFrancia() {
         ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
-        assertEquals(5.0, p.costeEnvio("Francia"), 0.01);
+        assertEquals(5.0, p.calcularCosteEnvio("Francia"), 0.01);
     }
 
     @Test
-    @DisplayName("T51 - costeEnvio devuelve 5 para Italia")
+    @DisplayName("T51 - calcularCosteEnvio devuelve 5 para Italia")
     void testCosteEnvioItalia() {
         ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
-        assertEquals(5.0, p.costeEnvio("Italia"), 0.01);
+        assertEquals(5.0, p.calcularCosteEnvio("Italia"), 0.01);
     }
 
     @Test
-    @DisplayName("T52 - costeEnvio devuelve 5 para Portugal")
+    @DisplayName("T52 - calcularCosteEnvio devuelve 5 para Portugal")
     void testCosteEnvioPortugal() {
         ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
-        assertEquals(5.0, p.costeEnvio("Portugal"), 0.01);
+        assertEquals(5.0, p.calcularCosteEnvio("Portugal"), 0.01);
     }
 
     @Test
-    @DisplayName("T53 - costeEnvio devuelve 10 para un país no contemplado")
+    @DisplayName("T53 - calcularCosteEnvio devuelve 10 para un país no contemplado")
     void testCosteEnvioOtroPais() {
         ProductoFisico p = new ProductoFisico("Silla", 100.0, 8.0);
-        assertEquals(10.0, p.costeEnvio("Alemania"), 0.01);
+        assertEquals(10.0, p.calcularCosteEnvio("Alemania"), 0.01);
     }
 
     @ParameterizedTest
-    @DisplayName("T54 - costeEnvio parametrizado por distintos países")
+    @DisplayName("T54 - calcularCosteEnvio parametrizado por distintos países")
     @CsvSource({
         "España,    0.0",
         "Francia,   5.0",
@@ -151,6 +151,6 @@ class ProductoFisicoTest {
     })
     void testCosteEnvioParametrizado(String pais, double esperado) {
         ProductoFisico p = new ProductoFisico("Producto", 50.0, 3.0);
-        assertEquals(esperado, p.costeEnvio(pais), 0.01);
+        assertEquals(esperado, p.calcularCosteEnvio(pais), 0.01);
     }
 }

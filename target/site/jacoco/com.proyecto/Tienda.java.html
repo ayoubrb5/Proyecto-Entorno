@@ -3,10 +3,12 @@
 import java.util.Map;
 
 /**
- * Clase responsable de gestionar las ventas de la tienda.
- * Actúa como punto de entrada para procesar un pedido y generar su factura.
+ * Clase orquestadora de la lógica de venta del sistema de pedidos.
+ * Coordina la interacción entre {@link Cliente}, {@link Pedido} y {@link Factura}
+ * para procesar una compra, aplicar descuentos de fidelidad y generar
+ * la factura correspondiente con el desglose completo de importes.
  */
-<span class="fc" id="L9">public class Tienda {</span>
+<span class="fc" id="L11">public class Tienda {</span>
 
     private static final double DESCUENTO_VIP           = 0.15;
     private static final double DESCUENTO_ANTIGUEDAD    = 0.10;
@@ -14,55 +16,56 @@ import java.util.Map;
 
     /**
      * Procesa un pedido para un cliente y genera la factura correspondiente.
-     * Aplica un descuento del 15% si el cliente es VIP, o del 10% si tiene
-     * más de 3 años de antigüedad. El IVA y los gastos de envío solo se
-     * calculan para los productos físicos, respetando las cantidades del pedido.
+     * Aplica un descuento si el cliente es VIP (15% sobre la base neta), o si tiene
+     * más de {@value #ANIOS_MINIMOS_DESCUENTO} años de antigüedad (10% sobre la base neta).
+     * El descuento VIP tiene prioridad sobre el de antigüedad. El IVA se aplica
+     * únicamente a los productos físicos y el envío se calcula según el país del cliente.
      *
-     * @param cliente el cliente que realiza la compra
-     * @param pedido  el pedido con la lista de productos y sus cantidades
+     * @param cliente el cliente que realiza la compra; no puede ser {@code null}
+     * @param pedido  el pedido con los productos a facturar; no puede estar vacío
      * @return la {@link Factura} generada con el desglose completo de importes
-     * @throws NullPointerException  si el cliente o el pedido son null
+     * @throws NullPointerException  si {@code cliente} o {@code pedido} son {@code null}
      * @throws IllegalStateException si el pedido no contiene ningún producto
      */
     public Factura realizarVenta(Cliente cliente, Pedido pedido) {
 
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (cliente == null) {</span>
-<span class="fc" id="L30">            throw new NullPointerException(&quot;El cliente no puede ser null&quot;);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (cliente == null) {</span>
+<span class="fc" id="L33">            throw new NullPointerException(&quot;El cliente no puede ser null&quot;);</span>
         }
-<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (pedido == null) {</span>
-<span class="fc" id="L33">            throw new NullPointerException(&quot;El pedido no puede ser null&quot;);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (pedido == null) {</span>
+<span class="fc" id="L36">            throw new NullPointerException(&quot;El pedido no puede ser null&quot;);</span>
         }
-<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (pedido.getProductos().isEmpty()) {</span>
-<span class="fc" id="L36">            throw new IllegalStateException(&quot;No se puede facturar un pedido sin productos&quot;);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (pedido.getProductos().isEmpty()) {</span>
+<span class="fc" id="L39">            throw new IllegalStateException(&quot;No se puede facturar un pedido sin productos&quot;);</span>
         }
 
-<span class="fc" id="L39">        double totalNeto  = 0;</span>
-<span class="fc" id="L40">        double totalIva   = 0;</span>
-<span class="fc" id="L41">        double totalEnvio = 0;</span>
+<span class="fc" id="L42">        double totalNeto  = 0;</span>
+<span class="fc" id="L43">        double totalIva   = 0;</span>
+<span class="fc" id="L44">        double totalEnvio = 0;</span>
 
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (Map.Entry&lt;Producto, Integer&gt; entrada : pedido.getCantidades().entrySet()) {</span>
-<span class="fc" id="L44">            Producto producto = entrada.getKey();</span>
-<span class="fc" id="L45">            int cantidad      = entrada.getValue();</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for (Map.Entry&lt;Producto, Integer&gt; entrada : pedido.getCantidades().entrySet()) {</span>
+<span class="fc" id="L47">            Producto producto = entrada.getKey();</span>
+<span class="fc" id="L48">            int cantidad      = entrada.getValue();</span>
 
-<span class="fc" id="L47">            totalNeto += producto.getPrecioBase() * cantidad;</span>
+<span class="fc" id="L50">            totalNeto += producto.getPrecioBase() * cantidad;</span>
 
-<span class="fc bfc" id="L49" title="All 2 branches covered.">            if (producto instanceof ProductoFisico) {</span>
-<span class="fc" id="L50">                ProductoFisico productoFisico = (ProductoFisico) producto;</span>
-<span class="fc" id="L51">                totalIva   += productoFisico.getPrecioBase() * ProductoFisico.TASA_IVA * cantidad;</span>
-<span class="fc" id="L52">                totalEnvio += productoFisico.costeEnvio(cliente.getPais()) * cantidad;</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (producto instanceof ProductoFisico) {</span>
+<span class="fc" id="L53">                ProductoFisico productoFisico = (ProductoFisico) producto;</span>
+<span class="fc" id="L54">                totalIva   += productoFisico.getPrecioBase() * ProductoFisico.TASA_IVA * cantidad;</span>
+<span class="fc" id="L55">                totalEnvio += productoFisico.calcularCosteEnvio(cliente.getPais()) * cantidad;</span>
             }
+<span class="fc" id="L57">        }</span>
+
+<span class="fc" id="L59">        double descuento = 0;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (cliente.isVip()) {</span>
+<span class="fc" id="L61">            descuento = totalNeto * DESCUENTO_VIP;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        } else if (cliente.getAñosAntiguedad() &gt; ANIOS_MINIMOS_DESCUENTO) {</span>
+<span class="fc" id="L63">            descuento = totalNeto * DESCUENTO_ANTIGUEDAD;</span>
         }
 
-<span class="fc" id="L56">        double descuento = 0;</span>
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (cliente.isEsVip()) {</span>
-<span class="fc" id="L58">            descuento = totalNeto * DESCUENTO_VIP;</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        } else if (cliente.getAñosAntiguedad() &gt; ANIOS_MINIMOS_DESCUENTO) {</span>
-<span class="fc" id="L60">            descuento = totalNeto * DESCUENTO_ANTIGUEDAD;</span>
-        }
+<span class="fc" id="L66">        double totalFinal = (totalNeto - descuento) + totalIva + totalEnvio;</span>
 
-<span class="fc" id="L63">        double totalFinal = (totalNeto - descuento) + totalIva + totalEnvio;</span>
-
-<span class="fc" id="L65">        return new Factura(totalNeto, descuento, totalIva, totalEnvio, totalFinal);</span>
+<span class="fc" id="L68">        return new Factura(totalNeto, descuento, totalIva, totalEnvio, totalFinal);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

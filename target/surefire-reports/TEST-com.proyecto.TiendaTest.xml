@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.TiendaTest" time="0.033" tests="24" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.proyecto.TiendaTest" time="0.037" tests="26" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Programa Files\jdk-25.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\ayoub\AppData\Local\Temp\surefire13892907070593460369\surefirebooter-20260602150607028_3.jar C:\Users\ayoub\AppData\Local\Temp\surefire13892907070593460369 2026-06-02T15-06-06_918-jvmRun1 surefire-20260602150607028_1tmp surefire_0-20260602150607028_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\ayoub\AppData\Local\Temp\surefire16340163442148672826\surefirebooter-20260603112011227_3.jar C:\Users\ayoub\AppData\Local\Temp\surefire16340163442148672826 2026-06-03T11-20-10_976-jvmRun1 surefire-20260603112011227_1tmp surefire_0-20260603112011227_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="c:\Users\ayoub\Desktop\Proyecto Entorno\Proyecto\sistema-pedido\target\test-classes;c:\Users\ayoub\Desktop\Proyecto Entorno\Proyecto\sistema-pedido\target\classes;C:\Users\ayoub\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\ayoub\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\ayoub\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\ayoub\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\ayoub\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\ayoub\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\ayoub\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\ayoub\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ayoub\AppData\Local\Temp\surefire13892907070593460369\surefirebooter-20260602150607028_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ayoub\AppData\Local\Temp\surefire16340163442148672826\surefirebooter-20260603112011227_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.2+10-69"/>
@@ -64,23 +64,25 @@
   <testcase name="testDescuentoClienteAntiguo" classname="com.proyecto.TiendaTest" time="0.001"/>
   <testcase name="testRealizarVentaDevuelveFactura" classname="com.proyecto.TiendaTest" time="0.001"/>
   <testcase name="testIntegracionClienteAntiguoFrancia" classname="com.proyecto.TiendaTest" time="0.001"/>
-  <testcase name="testPedidoNuloLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testIvaYEnvioConCantidadMayorQueUno" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testPedidoNuloLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.0"/>
   <testcase name="testPedidoVacioLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.001"/>
   <testcase name="testTotalNetoEsSumaPrecios" classname="com.proyecto.TiendaTest" time="0.001"/>
   <testcase name="testIntegracionSoloProductosDigitales" classname="com.proyecto.TiendaTest" time="0.001"/>
   <testcase name="testEnvioSegunPais(String, double)[1]" classname="com.proyecto.TiendaTest" time="0.001"/>
   <testcase name="testEnvioSegunPais(String, double)[2]" classname="com.proyecto.TiendaTest" time="0.0"/>
-  <testcase name="testEnvioSegunPais(String, double)[3]" classname="com.proyecto.TiendaTest" time="0.001"/>
-  <testcase name="testEnvioSegunPais(String, double)[4]" classname="com.proyecto.TiendaTest" time="0.0"/>
-  <testcase name="testEnvioSegunPais(String, double)[5]" classname="com.proyecto.TiendaTest" time="0.0"/>
-  <testcase name="testEnvioSegunPais(String, double)[6]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testEnvioSegunPais(String, double)[3]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testEnvioSegunPais(String, double)[4]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testEnvioSegunPais(String, double)[5]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testEnvioSegunPais(String, double)[6]" classname="com.proyecto.TiendaTest" time="0.0"/>
   <testcase name="testIntegracionClienteVipEspana" classname="com.proyecto.TiendaTest" time="0.001"/>
-  <testcase name="testClienteNuloLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.002"/>
+  <testcase name="testSinDescuentoCon3AnosExactos" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testClienteNuloLanzaExcepcion" classname="com.proyecto.TiendaTest" time="0.001"/>
   <testcase name="testDescuentoClienteVip" classname="com.proyecto.TiendaTest" time="0.001"/>
-  <testcase name="testTotalFinalParametrizado(double, double)[1]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[1]" classname="com.proyecto.TiendaTest" time="0.002"/>
   <testcase name="testTotalFinalParametrizado(double, double)[2]" classname="com.proyecto.TiendaTest" time="0.0"/>
-  <testcase name="testTotalFinalParametrizado(double, double)[3]" classname="com.proyecto.TiendaTest" time="0.0"/>
-  <testcase name="testTotalFinalParametrizado(double, double)[4]" classname="com.proyecto.TiendaTest" time="0.0"/>
-  <testcase name="testTotalFinalParametrizado(double, double)[5]" classname="com.proyecto.TiendaTest" time="0.001"/>
-  <testcase name="testIvaSoloEnFisicos" classname="com.proyecto.TiendaTest" time="0.002"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[3]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[4]" classname="com.proyecto.TiendaTest" time="0.001"/>
+  <testcase name="testTotalFinalParametrizado(double, double)[5]" classname="com.proyecto.TiendaTest" time="0.0"/>
+  <testcase name="testIvaSoloEnFisicos" classname="com.proyecto.TiendaTest" time="0.0"/>
 </testsuite>

@@ -6,20 +6,20 @@ public class ProductoFisico extends Producto {
     public static final double COSTE_ENVIO_EUROPA        = 5.0;
     public static final double COSTE_ENVIO_INTERNACIONAL = 10.0;
 
-    private double costeEnvio;
+    private double costeEnvioFijo;
     private double peso;
 
-    public ProductoFisico(String nombre, double precioBase, double costeEnvio) {
+    public ProductoFisico(String nombre, double precioBase, double costeEnvioFijo) {
         super(nombre, precioBase);
-        if (costeEnvio < 0) {
+        if (costeEnvioFijo < 0) {
             throw new IllegalArgumentException("El coste de envio no puede ser negativo");
         }
-        this.costeEnvio = costeEnvio;
-        this.peso       = 0;
+        this.costeEnvioFijo = costeEnvioFijo;
+        this.peso           = 0;
     }
 
     public double getCosteEnvio() {
-        return costeEnvio;
+        return costeEnvioFijo;
     }
 
     public double getPeso() {
@@ -35,11 +35,13 @@ public class ProductoFisico extends Producto {
 
     /**
      * Calcula el coste de envío según el país del cliente.
+     * España: gratuito; Francia, Italia y Portugal: tarifa europea;
+     * resto del mundo: tarifa internacional.
      *
-     * @param pais país del cliente
-     * @return 
+     * @param pais país de destino del envío
+     * @return coste de envío en euros, {@value #COSTE_ENVIO_EUROPA} o {@value #COSTE_ENVIO_INTERNACIONAL}
      */
-    public double costeEnvio(String pais) {
+    public double calcularCosteEnvio(String pais) {
         if (pais.equals("España")) {
             return 0;
         } else if (pais.equals("Francia") || pais.equals("Italia") || pais.equals("Portugal")) {
@@ -51,11 +53,11 @@ public class ProductoFisico extends Producto {
 
     @Override
     public double calcularPrecioFinal() {
-        return precioBase * (1 + TASA_IVA) + costeEnvio;
+        return getPrecioBase() * (1 + TASA_IVA) + costeEnvioFijo;
     }
 
     @Override
     public String toString() {
-        return nombre + " (físico) - " + precioBase + "€ + envío " + costeEnvio + "€";
+        return getNombre() + " (físico) - " + getPrecioBase() + "€ + envío " + costeEnvioFijo + "€";
     }
 }

@@ -1,6 +1,7 @@
 package com.proyecto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.time.LocalDate;
@@ -100,7 +101,7 @@ public class Pedido {
         return new ArrayList<>(cantidades.keySet());
     }
 
-    public LinkedHashMap<Producto, Integer> getCantidades() {
-        return cantidades;
+    public Map<Producto, Integer> getCantidades() {
+        return Collections.unmodifiableMap(cantidades);
     }
 }

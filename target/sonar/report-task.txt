@@ -1,6 +1,6 @@
-projectKey=sistema-pedidos
+projectKey=gestion-de-pedido
 serverUrl=http://localhost:9000
-serverVersion=26.3.0.120487
-dashboardUrl=http://localhost:9000/dashboard?id=sistema-pedidos
-ceTaskId=df067086-2410-4888-8c1f-77db8a268d21
-ceTaskUrl=http://localhost:9000/api/ce/task?id=df067086-2410-4888-8c1f-77db8a268d21
+serverVersion=26.5.0.122743
+dashboardUrl=http://localhost:9000/dashboard?id=gestion-de-pedido
+ceTaskId=f8ee726f-17fb-4e21-b0c5-2e2810095abe
+ceTaskUrl=http://localhost:9000/api/ce/task?id=f8ee726f-17fb-4e21-b0c5-2e2810095abe

@@ -46,7 +46,7 @@ public class Cliente {
         return añosAntiguedad;
     }
 
-    public boolean isEsVip() {
+    public boolean isVip() {
         return esVip;
     }
 

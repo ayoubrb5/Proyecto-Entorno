@@ -4,9 +4,9 @@ public abstract class Producto {
 
     private static int contadorProductos = 1;
 
-    protected String id;
-    protected String nombre;
-    protected double precioBase;
+    private String id;
+    private String nombre;
+    private double precioBase;
 
     public Producto(String nombre, double precioBase) {
         if (precioBase < 0) {
