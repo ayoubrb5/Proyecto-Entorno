@@ -3,10 +3,7 @@ package com.proyecto;
 import java.time.LocalDate;
 
 /**
- * Representa la factura generada tras procesar una venta en {@link Tienda}.
- * Almacena el desglose completo de importes: base neta, descuento aplicado,
- * IVA de productos físicos, gastos de envío y total final a pagar.
- * El código de factura se genera automáticamente con el formato {@code FAC-NNN}.
+ * Representa la factura de una venta con el desglose de importes.
  */
 public class Factura {
 
@@ -21,14 +18,13 @@ public class Factura {
     private double    totalFinal;
 
     /**
-     * Crea una nueva factura con los importes desglosados.
-     * El código de factura se genera automáticamente 
+     * Crea una factura con los importes indicados.
      *
-     * @param totalNeto      suma de los precios base de todos los productos
-     * @param totalDescuento 
-     * @param totalIva       total de IVA aplicado a los productos físicos
-     * @param totalEnvio     total de gastos de envío según el país del cliente
-     * @param totalFinal     importe final a pagar
+     * @param totalNeto      total neto
+     * @param totalDescuento total del descuento
+     * @param totalIva       total del IVA
+     * @param totalEnvio     total del envío
+     * @param totalFinal     total final a pagar
      */
     public Factura(double totalNeto, double totalDescuento, double totalIva,
                    double totalEnvio, double totalFinal) {
@@ -42,6 +38,9 @@ public class Factura {
         this.totalFinal     = totalFinal;
     }
 
+    /**
+     * Muestra por consola el desglose de la factura.
+     */
     public void mostrarDesglose() {
         System.out.println("========================================");
         System.out.println("  FACTURA: " + codigoFactura);
@@ -59,7 +58,8 @@ public class Factura {
     }
 
     /**
-     * Devuelve el código único de la factura
+     * Devuelve el código de la factura.
+     *
      * @return código de factura
      */
     public String getCodigoFactura() {
@@ -67,7 +67,8 @@ public class Factura {
     }
 
     /**
-     * Devuelve la fecha en que se emitió la factura.
+     * Devuelve la fecha de emisión.
+     *
      * @return fecha de emisión
      */
     public LocalDate getFechaEmision() {
@@ -75,7 +76,8 @@ public class Factura {
     }
 
     /**
-     * Devuelve la suma de los precios base de todos los productos
+     * Devuelve el total neto.
+     *
      * @return total neto
      */
     public double getTotalNeto() {
@@ -83,31 +85,35 @@ public class Factura {
     }
 
     /**
-     * Devuelve el importe descontado
-     * @return descuento aplicado o 0
+     * Devuelve el total del descuento.
+     *
+     * @return total del descuento
      */
     public double getTotalDescuento() {
         return totalDescuento;
     }
 
     /**
-     * Devuelve el importe total de IVA aplicado a los productos físicos.
-     * @return total de IVA
+     * Devuelve el total del IVA.
+     *
+     * @return total del IVA
      */
     public double getTotalIva() {
         return totalIva;
     }
 
     /**
-     * Devuelve el coste total de envío calculado según el país del cliente.
-     * @return total de gastos de envío
+     * Devuelve el total del envío.
+     *
+     * @return total del envío
      */
     public double getTotalEnvio() {
         return totalEnvio;
     }
 
     /**
-     * Devuelve el importe final que debe pagar el cliente.
+     * Devuelve el total final.
+     *
      * @return total final a pagar
      */
     public double getTotalFinal() {

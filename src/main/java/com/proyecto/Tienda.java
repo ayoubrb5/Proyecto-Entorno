@@ -2,7 +2,9 @@ package com.proyecto;
 
 import java.util.Map;
 
-
+/**
+ * Gestiona las ventas de la tienda y genera las facturas.
+ */
 public class Tienda {
 
     private static final double DESCUENTO_VIP           = 0.15;
@@ -10,15 +12,13 @@ public class Tienda {
     private static final int    ANIOS_MINIMOS_DESCUENTO = 3;
 
     /**
-     * Procesa un pedido para un cliente y genera la factura correspondiente.
-     * Aplica un descuento si el cliente es VIP (15% sobre la base neta), o si tiene
-     * años de antigüedad (10% sobre la base neta).
-     * El descuento VIP tiene prioridad sobre el de antigüedad. 
+     * Procesa un pedido y genera su factura, aplicando descuentos si corresponde.
      *
-     * @param cliente el cliente que realiza la compra
-     * @param pedido  el pedido con los productos a facturar
-     * @throws NullPointerException  
-     * @throws IllegalStateException 
+     * @param cliente cliente que compra
+     * @param pedido  pedido a facturar
+     * @return factura de la venta
+     * @throws NullPointerException  si el cliente o el pedido son null
+     * @throws IllegalStateException si el pedido no tiene productos
      */
     public Factura realizarVenta(Cliente cliente, Pedido pedido) {
 
