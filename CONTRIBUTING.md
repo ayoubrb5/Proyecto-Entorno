@@ -42,3 +42,5 @@ Intenta hacer un commit por cada cosa que cambies, y no subas la carpeta `target
 
 - Comenta con Javadoc las clases y los métodos.
 - Si añades algo nuevo, añade también su test.
+
+Payaso
